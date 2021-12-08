@@ -31,27 +31,40 @@ class main extends PluginBase implements Listener
         switch ($command->getName()) {
             case "launch":
                 if ($sender instanceof Player) {
-                    /** @var Fireworks $fw */
-                    $fw = ItemFactory::get(Item::FIREWORKS);
-                    $fw->addExplosion(Fireworks::TYPE_CREEPER_HEAD, Fireworks::COLOR_GREEN, "", false, false);
-                    $fw->setFlightDuration(2);
+                    $fwColors = [Fireworks::COLOR_BLACK, Fireworks::COLOR_RED, Fireworks::COLOR_DARK_GREEN, Fireworks::COLOR_BROWN, Fireworks::COLOR_BLUE, Fireworks::COLOR_DARK_PURPLE, Fireworks::COLOR_DARK_AQUA, Fireworks::COLOR_GRAY, Fireworks::COLOR_DARK_GRAY, Fireworks::COLOR_PINK, Fireworks::COLOR_GREEN, Fireworks::COLOR_YELLOW, Fireworks::COLOR_LIGHT_AQUA, Fireworks::COLOR_DARK_PINK, Fireworks::COLOR_GOLD, Fireworks::COLOR_WHITE];
+                    foreach ($fwColors as $color) {
+                        /** @var Fireworks $fw */
+                        $fw = ItemFactory::get(Item::FIREWORKS);
+                        $fw->addExplosion(Fireworks::TYPE_HUGE_SPHERE, mt_rand($color), "", false, true);
+                        $fw->setFlightDuration(2);
+                    }
 
                     // Use whatever level you'd like here. Must be loaded
                     $level = Server::getInstance()->getLevelByName("lobby");
-                    $posArray = [new Vector3(262,72,341), new Vector3(262,72,334), new Vector3(262,72,321), new Vector3(262,72,310)];
-                    foreach ($posArray as $array) {
-                        $getBlockPos = $level->getBlock($array);
-                        // Choose some coordinates
-                        $pos = $getBlockPos->add(0.5, 1, 0.5);
-                        //$vector3 = $level->getSpawnLocation()
-                        // Create the NBT data
-                        $nbt = FireworksRocket::createBaseNBT($pos, new Vector3(0.001, 0.05, 0.001), lcg_value() * 360, 90);
-                        // Construct and spawn
-                        $entity = FireworksRocket::createEntity("FireworksRocket", $level, $nbt, $fw);
-                        if ($entity instanceof FireworksRocket) {
-                            $entity->spawnToAll();
+                    $posArray = [new Vector3(262, 72, 341), new Vector3(262, 72, 334), new Vector3(262, 72, 321), new Vector3(262, 72, 310)];
+                    if (empty($this->cooldown[$level->getName()])) {
+                        $this->cooldown[$level->getName()] = time() + 5;
+                        foreach ($posArray as $array) {
+                            $getBlockPos = $level->getBlock($array);
+                            // Choose some coordinates
+                            $pos = $getBlockPos->add(0.5, 1, 0.5);
+                            //$vector3 = $level->getSpawnLocation()
+                            // Create the NBT data
+                            $nbt = FireworksRocket::createBaseNBT($pos, new Vector3(0.001, 0.05, 0.001), lcg_value() * 360, 90);
+                            // Construct and spawn
+                            $entity = FireworksRocket::createEntity("FireworksRocket", $level, $nbt, $fw);
+                            if ($entity instanceof FireworksRocket) {
+                                $entity->spawnToAll();
+                            }
+                        }
+                    } else {
+                        if (time() < $this->cooldown[$level->getName()]) {
+
+                        } else {
+                            unset($this->cooldown[$level->getName()]);
                         }
                     }
+
                 }
                 break;
         }
