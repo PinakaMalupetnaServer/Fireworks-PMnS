@@ -7,5 +7,4 @@ description: Fireworks for PMnS
 commands:
   launch:
     description: Launch Fireworks
-    usage: /launch
-    permission: fireworks.sudo
+    default: op
