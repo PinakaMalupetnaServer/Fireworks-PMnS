@@ -1,0 +1,11 @@
+name: Fireworks-PMnS
+main: princepines\FireworksPMnS\main
+version: 1.0.0
+api: 3.0.0
+author: Lycol50
+description: Fireworks for PMnS
+commands:
+  launch:
+    description: Launch Fireworks
+    usage: /launch
+    permission: fireworks.sudo
