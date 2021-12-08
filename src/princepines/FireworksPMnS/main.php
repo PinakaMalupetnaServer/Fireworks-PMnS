@@ -35,7 +35,7 @@ class main extends PluginBase implements Listener
                     foreach ($fwColors as $color) {
                         /** @var Fireworks $fw */
                         $fw = ItemFactory::get(Item::FIREWORKS);
-                        $fw->addExplosion(Fireworks::TYPE_HUGE_SPHERE, mt_rand($color), "", false, true);
+                        $fw->addExplosion(Fireworks::TYPE_HUGE_SPHERE, mt_rand($color, 16), "", false, true);
                         $fw->setFlightDuration(2);
                     }
 
