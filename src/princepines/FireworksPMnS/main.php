@@ -32,12 +32,10 @@ class main extends PluginBase implements Listener
             case "launch":
                 if ($sender instanceof Player) {
                     $fwColors = [Fireworks::COLOR_BLACK, Fireworks::COLOR_RED, Fireworks::COLOR_DARK_GREEN, Fireworks::COLOR_BROWN, Fireworks::COLOR_BLUE, Fireworks::COLOR_DARK_PURPLE, Fireworks::COLOR_DARK_AQUA, Fireworks::COLOR_GRAY, Fireworks::COLOR_DARK_GRAY, Fireworks::COLOR_PINK, Fireworks::COLOR_GREEN, Fireworks::COLOR_YELLOW, Fireworks::COLOR_LIGHT_AQUA, Fireworks::COLOR_DARK_PINK, Fireworks::COLOR_GOLD, Fireworks::COLOR_WHITE];
-                    foreach ($fwColors as $color) {
                         /** @var Fireworks $fw */
                         $fw = ItemFactory::get(Item::FIREWORKS);
-                        $fw->addExplosion(Fireworks::TYPE_HUGE_SPHERE, mt_rand($color, 16), "", false, true);
+                        $fw->addExplosion(Fireworks::TYPE_HUGE_SPHERE, array_rand($fwColors), "", false, true);
                         $fw->setFlightDuration(2);
-                    }
 
                     // Use whatever level you'd like here. Must be loaded
                     $level = Server::getInstance()->getLevelByName("lobby");
