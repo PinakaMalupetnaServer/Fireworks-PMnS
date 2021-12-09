@@ -48,8 +48,6 @@ class FireworkTask extends Task
         $posArray = [new Vector3(262, 72, 341), new Vector3(262, 72, 334),
             new Vector3(262, 72, 321), new Vector3(262, 72, 310),
             new Vector3(325,76,334), new Vector3(326,76,316),
-            new Vector3(309,66,353), new Vector3(309,66,293),
-            new Vector3(328,86,319), new Vector3(328,86,331),
             new Vector3(274,66,349), new Vector3(274,66,301)];
         foreach ($posArray as $array) {
             $getBlockPos = $level->getBlock($array);
