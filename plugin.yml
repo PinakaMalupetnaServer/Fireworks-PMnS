@@ -8,3 +8,6 @@ commands:
   launch:
     description: Launch Fireworks
     default: op
+  stoplaunch:
+    description: Stop Launching Fireworks
+    default: op
