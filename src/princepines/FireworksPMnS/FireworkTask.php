@@ -7,6 +7,7 @@ use BlockHorizons\Fireworks\entity\FireworksRocket;
 use BlockHorizons\Fireworks\item\Fireworks;
 use pocketmine\item\Item;
 use pocketmine\item\ItemFactory;
+use pocketmine\level\particle\AngryVillagerParticle;
 use pocketmine\math\Vector3;
 use pocketmine\scheduler\Task;
 use pocketmine\Server;
@@ -45,7 +46,11 @@ class FireworkTask extends Task
         // Use whatever level you'd like here. Must be loaded
         $level = Server::getInstance()->getLevelByName("lobby");
         $posArray = [new Vector3(262, 72, 341), new Vector3(262, 72, 334),
-            new Vector3(262, 72, 321), new Vector3(262, 72, 310)];
+            new Vector3(262, 72, 321), new Vector3(262, 72, 310),
+            new Vector3(325,76,334), new Vector3(326,76,316),
+            new Vector3(309,66,353), new Vector3(309,66,293),
+            new Vector3(328,86,319), new Vector3(328,86,331),
+            new Vector3(274,66,349), new Vector3(274,66,301)];
         foreach ($posArray as $array) {
             $getBlockPos = $level->getBlock($array);
             // Choose some coordinates
@@ -65,7 +70,11 @@ class FireworkTask extends Task
         $posArray2 = [new Vector3(471,20,204), new Vector3(471, 20, 273), new Vector3(386, 25, 309),
             new Vector3(386,25,247), new Vector3(387,25,229), new Vector3(406,4,110),
             new Vector3(430,4,110), new Vector3(456,4,110), new Vector3(470,5,226),
-            new Vector3(470,5,238), new Vector3(470,5,250)];
+            new Vector3(470,5,238), new Vector3(470,5,250),
+            new Vector3(418,4,163), new Vector3(446,4,163),
+            new Vector3(465,25,309), new Vector3(433,25,308),
+            new Vector3(418,25,308), new Vector3(386,25,101),
+            new Vector3(465,25,101)];
         foreach ($posArray2 as $array2) {
             $getBlockPos2 = $level2->getBlock($array2);
             // Choose some coordinates
