@@ -1,6 +1,5 @@
 <?php
 
-
 namespace princepines\FireworksPMnS;
 
 
@@ -42,20 +41,41 @@ class FireworkTask extends Task
         $fw->addExplosion(Fireworks::TYPE_HUGE_SPHERE, Fireworks::COLOR_WHITE, "", false, true);
         $fw->setFlightDuration(mt_rand($min, $max));
 
+        // LOBBY
         // Use whatever level you'd like here. Must be loaded
         $level = Server::getInstance()->getLevelByName("lobby");
-        $posArray = [new Vector3(262, 72, 341), new Vector3(262, 72, 334), new Vector3(262, 72, 321), new Vector3(262, 72, 310)];
+        $posArray = [new Vector3(262, 72, 341), new Vector3(262, 72, 334),
+            new Vector3(262, 72, 321), new Vector3(262, 72, 310)];
         foreach ($posArray as $array) {
             $getBlockPos = $level->getBlock($array);
             // Choose some coordinates
             $pos = $getBlockPos->add(0.5, 1, 0.5);
-            //$vector3 = $level->getSpawnLocation()
             // Create the NBT data
             $nbt = FireworksRocket::createBaseNBT($pos, new Vector3(0.001, 0.05, 0.001), lcg_value() * 360, 90);
             // Construct and spawn
             $entity = FireworksRocket::createEntity("FireworksRocket", $level, $nbt, $fw);
             if ($entity instanceof FireworksRocket) {
                 $entity->spawnToAll();
+            }
+        }
+
+        // EVENTS
+        // Use whatever level you'd like here. Must be loaded
+        $level2 = Server::getInstance()->getLevelByName("Event");
+        $posArray2 = [new Vector3(471,20,204), new Vector3(471, 20, 273), new Vector3(386, 25, 309),
+            new Vector3(386,25,247), new Vector3(387,25,229), new Vector3(406,4,110),
+            new Vector3(430,4,110), new Vector3(456,4,110), new Vector3(470,5,226),
+            new Vector3(470,5,238), new Vector3(470,5,250)];
+        foreach ($posArray2 as $array2) {
+            $getBlockPos2 = $level2->getBlock($array2);
+            // Choose some coordinates
+            $pos2 = $getBlockPos2->add(0.5, 1, 0.5);
+            // Create the NBT data
+            $nbt2 = FireworksRocket::createBaseNBT($pos2, new Vector3(0.001, 0.05, 0.001), lcg_value() * 360, 90);
+            // Construct and spawn
+            $entity2 = FireworksRocket::createEntity("FireworksRocket", $level2, $nbt2, $fw);
+            if ($entity2 instanceof FireworksRocket) {
+                $entity2->spawnToAll();
             }
         }
     }
