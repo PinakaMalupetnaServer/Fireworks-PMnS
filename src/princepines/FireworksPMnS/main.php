@@ -37,15 +37,17 @@ class main extends PluginBase implements Listener
                     /** @var Fireworks $fw */
                     $fw = ItemFactory::get(Item::FIREWORKS);
                     $fw->addExplosion(Fireworks::TYPE_HUGE_SPHERE, array_rand($fwColors), "", false, false);
+                    $fw->addExplosion(Fireworks::TYPE_HUGE_SPHERE, array_rand($fwColors), "", false, false);
+                    $fw->addExplosion(Fireworks::TYPE_HUGE_SPHERE, array_rand($fwColors), "", false, false);
+                    $fw->addExplosion(Fireworks::TYPE_HUGE_SPHERE, array_rand($fwColors), "", false, false);
                     $fw->setFlightDuration(mt_rand($min, $max));
-
-
-
 
                     // Use whatever level you'd like here. Must be loaded
                     $level = Server::getInstance()->getLevelByName("lobby");
                     $posArray = [new Vector3(262, 72, 341), new Vector3(262, 72, 334), new Vector3(262, 72, 321), new Vector3(262, 72, 310)];
-                    for ($x = 0; $x <= 20; $x++) {
+                    $timer = 120;
+                    $timer--;
+                    if ($timer > 0) {
                         foreach ($posArray as $array) {
                             $getBlockPos = $level->getBlock($array);
                             // Choose some coordinates
@@ -59,6 +61,8 @@ class main extends PluginBase implements Listener
                                 $entity->spawnToAll();
                             }
                         }
+                    } else {
+                        return false;
                     }
                 }
                 break;
