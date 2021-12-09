@@ -32,16 +32,20 @@ class main extends PluginBase implements Listener
             case "launch":
                 if ($sender instanceof Player) {
                     $fwColors = [Fireworks::COLOR_BLACK, Fireworks::COLOR_RED, Fireworks::COLOR_DARK_GREEN, Fireworks::COLOR_BROWN, Fireworks::COLOR_BLUE, Fireworks::COLOR_DARK_PURPLE, Fireworks::COLOR_DARK_AQUA, Fireworks::COLOR_GRAY, Fireworks::COLOR_DARK_GRAY, Fireworks::COLOR_PINK, Fireworks::COLOR_GREEN, Fireworks::COLOR_YELLOW, Fireworks::COLOR_LIGHT_AQUA, Fireworks::COLOR_DARK_PINK, Fireworks::COLOR_GOLD, Fireworks::COLOR_WHITE];
-                        /** @var Fireworks $fw */
-                        $fw = ItemFactory::get(Item::FIREWORKS);
-                        $fw->addExplosion(Fireworks::TYPE_HUGE_SPHERE, array_rand($fwColors), "", false, true);
-                        $fw->setFlightDuration(2);
+                    $min = 2;
+                    $max = 3;
+                    /** @var Fireworks $fw */
+                    $fw = ItemFactory::get(Item::FIREWORKS);
+                    $fw->addExplosion(Fireworks::TYPE_HUGE_SPHERE, array_rand($fwColors), "", false, false);
+                    $fw->setFlightDuration(mt_rand($min, $max));
+
+
+
 
                     // Use whatever level you'd like here. Must be loaded
                     $level = Server::getInstance()->getLevelByName("lobby");
                     $posArray = [new Vector3(262, 72, 341), new Vector3(262, 72, 334), new Vector3(262, 72, 321), new Vector3(262, 72, 310)];
-                    if (empty($this->cooldown[$level->getName()])) {
-                        $this->cooldown[$level->getName()] = time() + 5;
+                    for ($x = 0; $x <= 20; $x++) {
                         foreach ($posArray as $array) {
                             $getBlockPos = $level->getBlock($array);
                             // Choose some coordinates
@@ -55,14 +59,7 @@ class main extends PluginBase implements Listener
                                 $entity->spawnToAll();
                             }
                         }
-                    } else {
-                        if (time() < $this->cooldown[$level->getName()]) {
-
-                        } else {
-                            unset($this->cooldown[$level->getName()]);
-                        }
                     }
-
                 }
                 break;
         }
