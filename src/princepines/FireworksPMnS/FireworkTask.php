@@ -45,7 +45,6 @@ class FireworkTask extends Task
         // LOBBY
         // Use whatever level you'd like here. Must be loaded
         $level = Server::getInstance()->getLevelByName("lobby");
-
         $posArray = [new Vector3(262, 72, 341), new Vector3(262, 72, 334),
             new Vector3(262, 72, 321), new Vector3(262, 72, 310),
             new Vector3(325,76,334), new Vector3(326,76,316)];
@@ -59,8 +58,8 @@ class FireworkTask extends Task
             $entity = FireworksRocket::createEntity("FireworksRocket", $level, $nbt, $fw);
             if ($entity instanceof FireworksRocket) {
                 $entity->spawnToAll();
+                $level->setTime(18000);
             }
-            $level->setTime(18000);
         }
 
         // EVENTS
@@ -79,8 +78,8 @@ class FireworkTask extends Task
             $entity2 = FireworksRocket::createEntity("FireworksRocket", $level2, $nbt2, $fw);
             if ($entity2 instanceof FireworksRocket) {
                 $entity2->spawnToAll();
+                $level2->setTime(18000);
             }
-            $level->setTime(18000);
         }
     }
 }

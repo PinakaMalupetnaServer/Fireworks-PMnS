@@ -7,6 +7,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\event\Listener;
 use pocketmine\level\sound\BlazeShootSound;
 use pocketmine\math\Vector3;
+use pocketmine\network\mcpe\protocol\PlaySoundPacket;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 
@@ -28,9 +29,17 @@ class main extends PluginBase implements Listener
             case "launch":
                 if ($sender instanceof Player) {
                     $sender->sendMessage("Fireworks Starting.");
-                    //$player = $this->getServer()->getLoggedInPlayers();
-                    //$server = $this->getServer()->getLevelByName("lobby");
-                    //$server->addSound(new BlazeShootSound(new Vector3($player)), $server->getPlayers());
+                    $player = $this->getServer()->getOnlinePlayers();
+                    if ($player instanceof Player){
+                        $pk = new PlaySoundPacket;
+                        $pk->soundName = "medley";
+                        $pk->x = (int)$player->x;
+                        $pk->y = (int)$player->y;
+                        $pk->z = (int)$player->z;
+                        $pk->volume = 1;
+                        $pk->pitch = 1;
+                        $player->dataPacket($pk);
+                    }
                     $task = new FireworkTask();
                     $this->tasks[$sender->getId()] = $task;
                     $this->getScheduler()->scheduleDelayedRepeatingTask($task, 20,20);
@@ -38,6 +47,7 @@ class main extends PluginBase implements Listener
                 break;
             case "stoplaunch":
                 if ($sender instanceof Player) {
+                    $player = $this->getServer()->getOnlinePlayers();
                     $sender->sendMessage("Fireworks Stopping.");
                     $task = $this->tasks[$sender->getId()];
                     unset($this->tasks[$sender->getId()]);
