@@ -21,20 +21,24 @@ class main extends PluginBase implements Listener
 
     public $tasks = [];
 
+    public static function playMusic(Player $player, string $soundName, float $volume = 0, float $pitch = 0) {
+        $pk = new PlaySoundPacket;
+        $pk->soundName = $soundName;
+        $pk->x = (int)$player->x;
+        $pk->y = (int)$player->y;
+        $pk->z = (int)$player->z;
+        $pk->volume = $volume;
+        $pk->pitch = $pitch;
+        $player->dataPacket($pk);
+    }
+
     public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool
     {
         switch ($command->getName()) {
             case "launch":
                 if ($sender instanceof Player) {
                     foreach($this->getServer()->getOnlinePlayers() as $players) {
-                        $pk = new PlaySoundPacket;
-                        $pk->soundName = "medley";
-                        $pk->x = (int)$players->x;
-                        $pk->y = (int)$players->y;
-                        $pk->z = (int)$players->z;
-                        $pk->volume = 1;
-                        $pk->pitch = 1;
-                        $players->dataPacket($pk);
+                        self::playMusic($players, "medley", 1, 1);
                     }
                     $sender->sendMessage("Fireworks Starting.");
                     $task = new FireworkTask();
